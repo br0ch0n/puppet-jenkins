@@ -147,7 +147,7 @@ class jenkins::slave (
   validate_string($source)
   validate_string($proxy_server)
 
-  $client_jar = "swarm-client-${version}-jar-with-dependencies.jar"
+  $client_jar = "swarm-client-${version}.jar"
   $client_url = $source ? {
     undef   => "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${version}/",
     default => $source,
