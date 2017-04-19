@@ -121,6 +121,7 @@ class jenkins::slave (
   $ensure                   = 'running',
   $enable                   = true,
   $source                   = undef,
+  $jarname                  = undef,
   $java_args                = undef,
   $proxy_server             = undef,
 ) inherits jenkins::params {
@@ -145,9 +146,13 @@ class jenkins::slave (
   validate_re($ensure, '^running$|^stopped$')
   validate_bool($enable)
   validate_string($source)
+  validate_string($jarname)
   validate_string($proxy_server)
 
-  $client_jar = "swarm-client-${version}.jar"
+  $client_jar = $jarname ? {
+    undef   => "swarm-client-${version}.jar",
+    default => $jarname,
+  }
   $client_url = $source ? {
     undef   => "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${version}/",
     default => $source,
