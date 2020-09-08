@@ -144,16 +144,16 @@ parameters will have no effect on the plugin retrieval URL.
 #### Plugin dependencies
 Dependencies are not automatically installed. You need to manually determine the plugin dependencies and include those as well. The Jenkins wiki is a good place to do this. For example: The Git plugin page is at https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin.
 
-### Slaves
-You can automatically add slaves to jenkins, and have them auto register themselves.  Most options are actually optional, as nodes will auto-discover the master, and connect.
+### Agents
+You can automatically add agents to jenkins, and have them auto register themselves.  Most options are actually optional, as nodes will auto-discover the master, and connect.
 
-Full documentation for the slave code is in jenkins::slave.
+Full documentation for the agent code is in jenkins::agent.
 
-It requires the swarm plugin on the master & the class jenkins::slave on the slaves, as below:
+It requires the swarm plugin on the master & the class jenkins::agent on the agents, as below:
 
 ```puppet
-    node /jenkins-slave.*/ {
-      class { 'jenkins::slave':
+    node /jenkins-agent.*/ {
+      class { 'jenkins::agent':
         masterurl => 'http://jenkins-master1.domain.com:8080',
         ui_user => 'adminuser',
         ui_pass => 'adminpass',

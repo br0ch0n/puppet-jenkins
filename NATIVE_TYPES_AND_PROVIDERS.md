@@ -17,7 +17,7 @@ the module.**
     * [`jenkins_job`](#jenkins_job)
     * [`jenkins_num_executors`](#jenkins_num_executors)
     * [`jenkins_security_realm`](#jenkins_security_realm)
-    * [`jenkins_slaveagent_port`](#jenkins_slaveagent_port)
+    * [`jenkins_agentagent_port`](#jenkins_agentagent_port)
     * [`jenkins_user`](#jenkins_user)
 3. [TODO](#todo)
 
@@ -409,10 +409,10 @@ jenkins_security_realm { 'hudson.security.PAMSecurityRealm':
 }
 ```
 
-### `jenkins_slaveagent_port`
+### `jenkins_agentagent_port`
 
 ```
-jenkins_slaveagent_port { 44444: # name is coerced to Integer
+jenkins_agentagent_port { 44444: # name is coerced to Integer
   ensure => 'present', # present is the only allowed value
 }
 ```

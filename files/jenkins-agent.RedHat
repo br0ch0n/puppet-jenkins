@@ -1,14 +1,14 @@
 #!/bin/sh
 #
-# /etc/init.d/jenkins-slave
-# init script for Jenkins Slave Swarm Client.
+# /etc/init.d/jenkins-agent
+# init script for Jenkins Agent Swarm Client.
 #
 # chkconfig: 2345 90 60
-# description: Jenkins Slave Swarm Client
+# description: Jenkins Agent Swarm Client
 #
 RETVAL=0
 
-NAME=jenkins-slave
+NAME=jenkins-agent
 JENKINS_CONFIG=/etc/sysconfig/$NAME
 LOCK_FILE=/var/lock/subsys/$NAME
 
@@ -24,26 +24,26 @@ else
     RUNUSER=su
 fi
 
-slave_start() {
-  echo Starting Jenkins Slave...
+agent_start() {
+  echo Starting Jenkins Agent...
 
   # the default location is /var/run/jenkins/jenkins.pid but the parent directory needs to be created
   mkdir `dirname $PIDFILE` > /dev/null 2>&1 || true
-  chown $JENKINS_SLAVE_USER `dirname $PIDFILE`
+  chown $JENKINS_AGENT_USER `dirname $PIDFILE`
 
   # create log directory
-  mkdir -p `dirname $JENKINS_SLAVE_LOG` > /dev/null 2>&1 || true
-  chown $JENKINS_SLAVE_USER -R `dirname $JENKINS_SLAVE_LOG`
+  mkdir -p `dirname $JENKINS_AGENT_LOG` > /dev/null 2>&1 || true
+  chown $JENKINS_AGENT_USER -R `dirname $JENKINS_AGENT_LOG`
 
   # --user in daemon doesn't prepare environment variables like HOME, USER, LOGNAME or USERNAME,
   # so we let su do so for us now
-  $RUNUSER - $JENKINS_SLAVE_USER -c "$JAVA $JAVA_ARGS -jar $JENKINS_SLAVE_JAR $JENKINS_SLAVE_ARGS >> $JENKINS_SLAVE_LOG 2>&1 &"
-  pgrep -f -u $JENKINS_SLAVE_USER $JENKINS_SLAVE_JAR > $PIDFILE
+  $RUNUSER - $JENKINS_AGENT_USER -c "$JAVA $JAVA_ARGS -jar $JENKINS_AGENT_JAR $JENKINS_AGENT_ARGS >> $JENKINS_AGENT_LOG 2>&1 &"
+  pgrep -f -u $JENKINS_AGENT_USER $JENKINS_AGENT_JAR > $PIDFILE
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch $LOCK_FILE
 }
-slave_stop() {
-  echo Stopping Jenkins Slave...
+agent_stop() {
+  echo Stopping Jenkins Agent...
   pid=`cat $PIDFILE`
 
   killproc -p $PIDFILE
@@ -58,31 +58,31 @@ slave_stop() {
   [ $RETVAL -eq 0 ] && rm -f $LOCK_FILE
 }
 
-slave_restart() {
-  echo Restarting Jenkins Slave...
-  slave_stop
-  slave_start
+agent_restart() {
+  echo Restarting Jenkins Agent...
+  agent_stop
+  agent_start
 
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch $LOCK_FILE
 }
-slave_status() {
-  echo Jenkins Slave status:
+agent_status() {
+  echo Jenkins Agent status:
   status -p $PIDFILE
   RETVAL=$?
 }
 case "$1" in
   start)
-    slave_start
+    agent_start
     ;;
   stop)
-    slave_stop
+    agent_stop
     ;;
   restart)
-    slave_restart
+    agent_restart
     ;;
   status)
-    slave_status
+    agent_status
     ;;
   *)
     echo "Usage: $0 {start|stop|restart|status}"

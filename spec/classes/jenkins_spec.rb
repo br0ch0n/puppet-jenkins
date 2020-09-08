@@ -131,33 +131,33 @@ describe 'jenkins', :type => :module do
       end
     end # executors =>
 
-    describe 'slaveagentport =>' do
+    describe 'agentagentport =>' do
       context 'undef' do
-        it { should_not contain_jenkins__cli__exec('set_slaveagent_port') }
+        it { should_not contain_jenkins__cli__exec('set_agentagent_port') }
       end
 
       context '7777' do
         let(:port) { 7777 }
-        let(:params) {{ :slaveagentport => port }}
+        let(:params) {{ :agentagentport => port }}
 
         it do
-          should contain_jenkins__cli__exec('set_slaveagent_port').with(
-            :command => ['set_slaveagent_port', port],
-            :unless  => "[ $($HELPER_CMD get_slaveagent_port) -eq #{port} ]",
+          should contain_jenkins__cli__exec('set_agentagent_port').with(
+            :command => ['set_agentagent_port', port],
+            :unless  => "[ $($HELPER_CMD get_agentagent_port) -eq #{port} ]",
           )
         end
-        it { should contain_jenkins__cli__exec('set_slaveagent_port').that_requires('Class[jenkins::cli]') }
-        it { should contain_jenkins__cli__exec('set_slaveagent_port').that_comes_before('Class[jenkins::jobs]') }
+        it { should contain_jenkins__cli__exec('set_agentagent_port').that_requires('Class[jenkins::cli]') }
+        it { should contain_jenkins__cli__exec('set_agentagent_port').that_comes_before('Class[jenkins::jobs]') }
       end
 
       context '{}' do
-        let(:params) {{ :slaveagentport => {} }}
+        let(:params) {{ :agentagentport => {} }}
 
         it 'should fail' do
           should raise_error(Puppet::Error, /to be an Integer/)
         end
       end
-    end # slaveagentport =>
+    end # agentagentport =>
 
     describe 'manage_user =>' do
       context '(default)' do

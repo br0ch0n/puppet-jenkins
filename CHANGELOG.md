@@ -5,12 +5,12 @@ This is a manually kept file, and may not entirely reflect reality
 ## v1.6.0 - Kato
 
 * [#219](https://github.com/jenkinsci/puppet-jenkins/issues/219) - Plugins are installed each time and restarting service
-* [#314](https://github.com/jenkinsci/puppet-jenkins/pull/314) - Update jenkins-slave.RedHat init.d script work bash < 4.0
+* [#314](https://github.com/jenkinsci/puppet-jenkins/pull/314) - Update jenkins-agent.RedHat init.d script work bash < 4.0
 * [#362](https://github.com/jenkinsci/puppet-jenkins/issues/362) - Error on updating existing job
 * [#365](https://github.com/jenkinsci/puppet-jenkins/issues/365) - jenkins user and jenkins_home directory not configurable
 * [#367](https://github.com/jenkinsci/puppet-jenkins/pull/367) - [puppet-jenkins#366] Replace -toolLocations with --toolLocation
-* [#371](https://github.com/jenkinsci/puppet-jenkins/issues/371) - slave:  INFO: Failure authenticating with BASIC 'Jenkins'  401
-* [#372](https://github.com/jenkinsci/puppet-jenkins/issues/372) - Slave: swarm-client requires a cashe directory /home/jenkins-slave/.jenkins/ 
+* [#371](https://github.com/jenkinsci/puppet-jenkins/issues/371) - agent:  INFO: Failure authenticating with BASIC 'Jenkins'  401
+* [#372](https://github.com/jenkinsci/puppet-jenkins/issues/372) - Agent: swarm-client requires a cashe directory /home/jenkins-agent/.jenkins/ 
 * [#374](https://github.com/jenkinsci/puppet-jenkins/pull/374) - add single quotes for credentials
 * [#376](https://github.com/jenkinsci/puppet-jenkins/pull/376) - Add template in the jenkins::job
 * [#377](https://github.com/jenkinsci/puppet-jenkins/pull/377) - Making the management of the daemon package optional
@@ -26,7 +26,7 @@ This is a manually kept file, and may not entirely reflect reality
 * [#391](https://github.com/jenkinsci/puppet-jenkins/pull/391) - use ensure_packages() to manage the daemon package
 * [#395](https://github.com/jenkinsci/puppet-jenkins/pull/395) - Fix username quoting
 * [#396](https://github.com/jenkinsci/puppet-jenkins/pull/396) - add user/group mgt. + localstatedir params to jenkins class
-* [#398](https://github.com/jenkinsci/puppet-jenkins/pull/398) - client_url is hardcoded in slave.pp
+* [#398](https://github.com/jenkinsci/puppet-jenkins/pull/398) - client_url is hardcoded in agent.pp
 * [#399](https://github.com/jenkinsci/puppet-jenkins/pull/399) - document types and providers puppetserver known issues
 
 ## v1.5.0 - Jennings
@@ -42,8 +42,8 @@ This is a manually kept file, and may not entirely reflect reality
 * [#298](https://github.com/jenkinsci/puppet-jenkins/pull/298) - Maint/fix resource relationships
 * [#301](https://github.com/jenkinsci/puppet-jenkins/pull/301) - Apt upgrade
 * [#302](https://github.com/jenkinsci/puppet-jenkins/pull/302) - Package name no longer hardcoded
-* [#303](https://github.com/jenkinsci/puppet-jenkins/pull/303) - Puppet helper slaveagentport
-* [#319](https://github.com/jenkinsci/puppet-jenkins/pull/319) - Adding optional description to slave
+* [#303](https://github.com/jenkinsci/puppet-jenkins/pull/303) - Puppet helper agentagentport
+* [#319](https://github.com/jenkinsci/puppet-jenkins/pull/319) - Adding optional description to agent
 * [#320](https://github.com/jenkinsci/puppet-jenkins/issues/320) - Forge Project URL link broken
 * [#323](https://github.com/jenkinsci/puppet-jenkins/pull/323) - Upgraded apt module dependency to support v2
 * [#325](https://github.com/jenkinsci/puppet-jenkins/pull/325) - add puppet ~> 3.8 & ~> 4.1 to travis matrix
@@ -53,7 +53,7 @@ This is a manually kept file, and may not entirely reflect reality
 * [#335](https://github.com/jenkinsci/puppet-jenkins/pull/335) - Fix jenkins::plugin with create_user false
 * [#336](https://github.com/jenkinsci/puppet-jenkins/pull/336) - Features/9618 stronger plugin verification
 * [#347](https://github.com/jenkinsci/puppet-jenkins/pull/347) - Fix require paths
-* [#351](https://github.com/jenkinsci/puppet-jenkins/pull/351) - add darwin/osx support to slave class
+* [#351](https://github.com/jenkinsci/puppet-jenkins/pull/351) - add darwin/osx support to agent class
 * [#352](https://github.com/jenkinsci/puppet-jenkins/pull/352) - Adding cli_ssh_keyfile parameter to specify the location of a private key
 * [#353](https://github.com/jenkinsci/puppet-jenkins/pull/353) - Class cannot find exec in jenkins::cli::reload.
 * [#357](https://github.com/jenkinsci/puppet-jenkins/issues/357) - CLI classes unaware of Jenkins' --prefix
@@ -63,7 +63,7 @@ This is a manually kept file, and may not entirely reflect reality
 ## v1.4.0 - Smithers
 
 * [#222](https://github.com/jenkinsci/puppet-jenkins/pull/222) - Add retry to credentials execs
-* [#229](https://github.com/jenkinsci/puppet-jenkins/pull/229) - Jenkins slave defaults bugfix
+* [#229](https://github.com/jenkinsci/puppet-jenkins/pull/229) - Jenkins agent defaults bugfix
 * [#233](https://github.com/jenkinsci/puppet-jenkins/pull/233) - fixes timeouts on restart
 * [#235](https://github.com/jenkinsci/puppet-jenkins/pull/235) - Make creation of user optional
 * [#236](https://github.com/jenkinsci/puppet-jenkins/pull/236) - Cleanup metadata.json for better mechanical score
@@ -123,23 +123,23 @@ This is a manually kept file, and may not entirely reflect reality
 * [#140](https://github.com/jenkinsci/puppet-jenkins/issues/140) - Packaging Cruft in 1.1.0
 * [#144](https://github.com/jenkinsci/puppet-jenkins/pull/144) - Update init.pp - correct plugins example syntax
 * [#149](https://github.com/jenkinsci/puppet-jenkins/pull/149) - Do not ensure plugin_parent_dir to be a directory (#148)
-* [#150](https://github.com/jenkinsci/puppet-jenkins/pull/150) - Add ensure parameter to jenkins::slave
+* [#150](https://github.com/jenkinsci/puppet-jenkins/pull/150) - Add ensure parameter to jenkins::agent
 * [#151](https://github.com/jenkinsci/puppet-jenkins/issues/151) - Unsupported OSFamily RedHat on node
-* [#152](https://github.com/jenkinsci/puppet-jenkins/issues/152) - Jenkins-slave on Centos: killproc and checkpid commands not found
-* [#153](https://github.com/jenkinsci/puppet-jenkins/pull/153) - Fixes to Jenkins slave init and class
-* [#154](https://github.com/jenkinsci/puppet-jenkins/issues/154) - slave_mode doesn't apply on debian distros.
+* [#152](https://github.com/jenkinsci/puppet-jenkins/issues/152) - Jenkins-agent on Centos: killproc and checkpid commands not found
+* [#153](https://github.com/jenkinsci/puppet-jenkins/pull/153) - Fixes to Jenkins agent init and class
+* [#154](https://github.com/jenkinsci/puppet-jenkins/issues/154) - agent_mode doesn't apply on debian distros.
 * [#155](https://github.com/jenkinsci/puppet-jenkins/pull/155) - Add defined check for plugin_parent_dir resource
-* [#157](https://github.com/jenkinsci/puppet-jenkins/pull/157) - Add missing slave mode to Debian defaults file
+* [#157](https://github.com/jenkinsci/puppet-jenkins/pull/157) - Add missing agent mode to Debian defaults file
 * [#160](https://github.com/jenkinsci/puppet-jenkins/pull/160) - User and credentials creation, simple security management
 * [#166](https://github.com/jenkinsci/puppet-jenkins/issues/166) - Error loading fact /var/lib/puppet/lib/facter/jenkins.rb no such file to load -- json
-* [#171](https://github.com/jenkinsci/puppet-jenkins/pull/171) - A bit of RedHat and Debian slave initd script merging
+* [#171](https://github.com/jenkinsci/puppet-jenkins/pull/171) - A bit of RedHat and Debian agent initd script merging
 * [#176](https://github.com/jenkinsci/puppet-jenkins/issues/176) - no such file to load -- json
 * [#180](https://github.com/jenkinsci/puppet-jenkins/issues/180) - Replace use of unzip with `jar` for unpacking jenkins CLI
 * [#182](https://github.com/jenkinsci/puppet-jenkins/pull/182) - Include the apt module when installing an apt repository
 * [#183](https://github.com/jenkinsci/puppet-jenkins/pull/183) - Rely on the `jar` command instead of `unzip` to unpack the cli.jar
-* [#185](https://github.com/jenkinsci/puppet-jenkins/pull/185) - Allow setting the slave name, default to the fqdn at runtime
+* [#185](https://github.com/jenkinsci/puppet-jenkins/pull/185) - Allow setting the agent name, default to the fqdn at runtime
 * [#186](https://github.com/jenkinsci/puppet-jenkins/issues/186) - Puppet Forge module
-* [#187](https://github.com/jenkinsci/puppet-jenkins/issues/187) - Jenkins slave on RedHat - jenkins-slave.erb
+* [#187](https://github.com/jenkinsci/puppet-jenkins/issues/187) - Jenkins agent on RedHat - jenkins-agent.erb
 
 
 ## v1.1.0 - Duckworth
@@ -148,10 +148,10 @@ This is a manually kept file, and may not entirely reflect reality
 
  * [#86](https://github.com/jenkinsci/puppet-jenkins/issues/86),
    [#122](https://github.com/jenkinsci/puppet-jenkins/pull/122) - Add support
-   for disabling SSL verification on slaves
+   for disabling SSL verification on agents
  * [#116](https://github.com/jenkinsci/puppet-jenkins/pull/116) - Add support
-   for setting the `-fsroot` option for slaves
- * `init` script for Debian-family slaves added
+   for setting the `-fsroot` option for agents
+ * `init` script for Debian-family agents added
  * Initial code for a [jpm](https://github.com/rtyler/jpm) based `Package`
    provider merged
 
@@ -163,6 +163,6 @@ This is a manually kept file, and may not entirely reflect reality
    dependency issue between repo and package installation.
  * `$jenkins_plugins` fact refactored and RSpec tests added
  * [#121](https://github.com/jenkinsci/puppet-jenkins/pull/121) - `daemon`
-   package installed to make Debian slave installs functional
+   package installed to make Debian agent installs functional
  * [#126](https://github.com/jenkinsci/puppet-jenkins/issues/126) - Facter
    exception bug fixed

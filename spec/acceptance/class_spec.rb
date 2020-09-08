@@ -63,11 +63,11 @@ describe 'jenkins class' do
     end
   end # executors
 
-  context 'slaveagentport' do
+  context 'agentagentport' do
       it 'should work with no errors' do
         pp = <<-EOS
         class {'jenkins':
-          slaveagentport => 7777,
+          agentagentport => 7777,
         }
         EOS
 
@@ -88,7 +88,7 @@ describe 'jenkins class' do
       end
 
       describe file('/var/lib/jenkins/config.xml') do
-        it { should contain '  <slaveAgentPort>7777</slaveAgentPort>' }
+        it { should contain '  <agentAgentPort>7777</agentAgentPort>' }
       end
-    end # slaveagentport
+    end # agentagentport
 end

@@ -54,8 +54,8 @@
 # executors = undef (Default)
 #   Integer number of executors on the Jenkin's master.
 #
-# slaveagentport = undef (Default)
-#   Integer number of portnumber for the slave agent.
+# agentagentport = undef (Default)
+#   Integer number of portnumber for the agent agent.
 #
 # manage_user = true (default)
 #
@@ -198,7 +198,7 @@ class jenkins(
   $manage_datadirs    = $jenkins::params::manage_datadirs,
   $localstatedir      = $::jenkins::params::localstatedir,
   $executors          = undef,
-  $slaveagentport     = undef,
+  $agentagentport     = undef,
   $manage_user        = $::jenkins::params::manage_user,
   $user               = $::jenkins::params::user,
   $manage_group       = $::jenkins::params::manage_group,
@@ -234,7 +234,7 @@ class jenkins(
   validate_bool($manage_datadirs)
   validate_absolute_path($localstatedir)
   if $executors { validate_integer($executors) }
-  if $slaveagentport { validate_integer($slaveagentport) }
+  if $agentagentport { validate_integer($agentagentport) }
   validate_bool($manage_user)
   validate_string($user)
   validate_bool($manage_group)
@@ -308,14 +308,14 @@ class jenkins(
         Class['jenkins::jobs']
   }
 
-  if ($slaveagentport != undef) {
-    jenkins::cli::exec { 'set_slaveagent_port':
-      command => ['set_slaveagent_port', $slaveagentport],
-      unless  => "[ \$(\$HELPER_CMD get_slaveagent_port) -eq ${slaveagentport} ]"
+  if ($agentagentport != undef) {
+    jenkins::cli::exec { 'set_agentagent_port':
+      command => ['set_agentagent_port', $agentagentport],
+      unless  => "[ \$(\$HELPER_CMD get_agentagent_port) -eq ${agentagentport} ]"
     }
 
     Class['jenkins::cli'] ->
-      Jenkins::Cli::Exec['set_slaveagent_port'] ->
+      Jenkins::Cli::Exec['set_agentagent_port'] ->
         Class['jenkins::jobs']
   }
 

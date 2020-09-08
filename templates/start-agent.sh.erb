@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+source <%= @defaults_location %>/jenkins-agent 
+java -jar <%= @agent_home %>/<%= @client_jar %> $JENKINS_AGENT_ARGS

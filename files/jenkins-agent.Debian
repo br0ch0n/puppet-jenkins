@@ -1,27 +1,27 @@
 #!/bin/bash
-# /etc/init.d/jenkins-slave
-# debian-compatible jenkins-slave startup script.
+# /etc/init.d/jenkins-agent
+# debian-compatible jenkins-agent startup script.
 #
 ### BEGIN INIT INFO
-# Provides:          jenkins-slave
+# Provides:          jenkins-agent
 # Required-Start:    $remote_fs $syslog $network
 # Required-Stop:     $remote_fs $syslog $network
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start jenkins-slave at boot time
-# Description:       Controls the Jenkins Slave Swarm Client
+# Short-Description: Start jenkins-agent at boot time
+# Description:       Controls the Jenkins Agent Swarm Client
 ### END INIT INFO
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 
-DESC="Jenkins Slave Swarm Client"
-NAME=jenkins-slave
+DESC="Jenkins Agent Swarm Client"
+NAME=jenkins-agent
 SCRIPTNAME=/etc/init.d/$NAME
 
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
 DAEMON=/usr/bin/daemon
-DAEMON_ARGS="--name=$NAME --inherit --output=$JENKINS_SLAVE_LOG --pidfile=$PIDFILE"
+DAEMON_ARGS="--name=$NAME --inherit --output=$JENKINS_AGENT_LOG --pidfile=$PIDFILE"
 
 SU=/bin/su
 
@@ -61,11 +61,11 @@ do_start()
 {
     # the default location is /var/run/jenkins/jenkins.pid but the parent directory needs to be created
     mkdir `dirname $PIDFILE` > /dev/null 2>&1 || true
-    chown $JENKINS_SLAVE_USER `dirname $PIDFILE`
+    chown $JENKINS_AGENT_USER `dirname $PIDFILE`
 
     # create log directory
-    mkdir -p `dirname $JENKINS_SLAVE_LOG` > /dev/null 2>&1 || true
-    chown $JENKINS_SLAVE_USER -R `dirname $JENKINS_SLAVE_LOG`
+    mkdir -p `dirname $JENKINS_AGENT_LOG` > /dev/null 2>&1 || true
+    chown $JENKINS_AGENT_USER -R `dirname $JENKINS_AGENT_LOG`
 
     # Return
     #   0 if daemon has been started
@@ -82,7 +82,7 @@ do_start()
 
     # --user in daemon doesn't prepare environment variables like HOME, USER, LOGNAME or USERNAME,
     # so we let su do so for us now
-    $SU -l $JENKINS_SLAVE_USER --shell=/bin/bash -c "$DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS -jar $JENKINS_SLAVE_JAR $JENKINS_SLAVE_ARGS" || return 2
+    $SU -l $JENKINS_AGENT_USER --shell=/bin/bash -c "$DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS -jar $JENKINS_AGENT_JAR $JENKINS_AGENT_ARGS" || return 2
 }
 
 
@@ -92,14 +92,14 @@ do_start()
 #
 get_running()
 {
-    return `ps -U $JENKINS_SLAVE_USER --no-headers -f | egrep -e '(java|daemon)' | grep -c . `
+    return `ps -U $JENKINS_AGENT_USER --no-headers -f | egrep -e '(java|daemon)' | grep -c . `
 }
 
 force_stop()
 {
     get_running
     if [ $? -ne 0 ]; then
-    killall -u $JENKINS_SLAVE_USER java daemon || return 3
+    killall -u $JENKINS_AGENT_USER java daemon || return 3
     fi
 }
 

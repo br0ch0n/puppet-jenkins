@@ -1,11 +1,11 @@
 require 'spec_helper'
 require 'json'
 
-describe Puppet::Type.type(:jenkins_slaveagent_port).provider(:cli) do
+describe Puppet::Type.type(:jenkins_agentagent_port).provider(:cli) do
   describe '::instances' do
     context 'without any params' do
       before do
-        expect(described_class).to receive(:get_slaveagent_port).
+        expect(described_class).to receive(:get_agentagent_port).
           with(nil) { 42 }
       end
 
@@ -21,10 +21,10 @@ describe Puppet::Type.type(:jenkins_slaveagent_port).provider(:cli) do
     end
 
     context 'when called with a catalog param' do
-      it 'should pass it on ::get_slaveagent_port' do
+      it 'should pass it on ::get_agentagent_port' do
         catalog = Puppet::Resource::Catalog.new
 
-        expect(described_class).to receive(:get_slaveagent_port).
+        expect(described_class).to receive(:get_agentagent_port).
           with(catalog) { 42 }
 
         described_class.instances(catalog)
@@ -33,11 +33,11 @@ describe Puppet::Type.type(:jenkins_slaveagent_port).provider(:cli) do
   end # ::instanes
 
   describe '#flush' do
-    it 'should call set_slaveagent_port' do
+    it 'should call set_agentagent_port' do
       provider = described_class.new
       provider.create
 
-      expect(provider).to receive(:set_slaveagent_port).with(no_args)
+      expect(provider).to receive(:set_agentagent_port).with(no_args)
       provider.flush
     end
 
@@ -55,23 +55,23 @@ describe Puppet::Type.type(:jenkins_slaveagent_port).provider(:cli) do
   # private methods
   #
 
-  describe '::get_slaveagent_port' do
+  describe '::get_agentagent_port' do
     it do
       expect(described_class).to receive(:clihelper).
-        with(['get_slaveagent_port'], :catalog => nil) { 42 }
+        with(['get_agentagent_port'], :catalog => nil) { 42 }
 
-      n = described_class.send :get_slaveagent_port
+      n = described_class.send :get_agentagent_port
       expect(n).to eq 42
     end
-  end # ::get_slaveagent_port
+  end # ::get_agentagent_port
 
   describe '#set_jenkins_instance' do
     it do
       provider = described_class.new(:name => 42)
 
-      expect(described_class).to receive(:clihelper).with(['set_slaveagent_port', 42])
+      expect(described_class).to receive(:clihelper).with(['set_agentagent_port', 42])
 
-      provider.send :set_slaveagent_port
+      provider.send :set_agentagent_port
     end
   end # #set_jenkins_instance
 

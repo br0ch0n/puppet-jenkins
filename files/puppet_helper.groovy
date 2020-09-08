@@ -911,24 +911,24 @@ class Actions {
   }
 
   ////////////////////////
-  // get_slaveagent_port
+  // get_agentagent_port
   ////////////////////////
   /*
-   * Print the port number of the slave agent
+   * Print the port number of the agent agent
   */
-  void get_slaveagent_port() {
+  void get_agentagent_port() {
     def j = Jenkins.getInstance()
     def n = j.getSlaveAgentPort()
     out.println(n)
   }
 
   ////////////////////////
-  // set_slaveagent_port
+  // set_agentagent_port
   ////////////////////////
   /*
-   * Set the portnumber of the slave agent
+   * Set the portnumber of the agent agent
   */
-  void set_slaveagent_port(String n) {
+  void set_agentagent_port(String n) {
     def j = Jenkins.getInstance()
     j.setSlaveAgentPort(n.toInteger())
     j.save()

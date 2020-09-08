@@ -1,12 +1,12 @@
 require 'puppet_x/jenkins/util'
 require 'puppet_x/jenkins/provider/cli'
 
-Puppet::Type.type(:jenkins_slaveagent_port).provide(:cli, :parent => PuppetX::Jenkins::Provider::Cli) do
+Puppet::Type.type(:jenkins_agentagent_port).provide(:cli, :parent => PuppetX::Jenkins::Provider::Cli) do
 
   mk_resource_methods
 
   def self.instances(catalog = nil)
-    n = get_slaveagent_port(catalog)
+    n = get_agentagent_port(catalog)
 
     # there can be only one value
     Puppet.debug("#{sname} instances: #{n}")
@@ -17,7 +17,7 @@ Puppet::Type.type(:jenkins_slaveagent_port).provide(:cli, :parent => PuppetX::Je
   def flush
     case self.ensure
     when :present
-      set_slaveagent_port
+      set_agentagent_port
     else
       fail("invalid :ensure value: #{self.ensure}")
     end
@@ -25,12 +25,12 @@ Puppet::Type.type(:jenkins_slaveagent_port).provide(:cli, :parent => PuppetX::Je
 
   private
 
-  def self.get_slaveagent_port(catalog = nil)
-    clihelper(['get_slaveagent_port'], :catalog => catalog).to_i
+  def self.get_agentagent_port(catalog = nil)
+    clihelper(['get_agentagent_port'], :catalog => catalog).to_i
   end
-  private_class_method :get_slaveagent_port
+  private_class_method :get_agentagent_port
 
-  def set_slaveagent_port
-    clihelper(['set_slaveagent_port', name])
+  def set_agentagent_port
+    clihelper(['set_agentagent_port', name])
   end
 end
