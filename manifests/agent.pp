@@ -157,6 +157,10 @@ class jenkins::agent (
     undef   => "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/${version}/",
     default => $source,
   }
+  $jar_owner = $manage_agent_user? {
+    true  => $agent_user,
+    false => undef,
+  }
   $quoted_ui_user = shellquote($ui_user)
   $quoted_ui_pass = shellquote($ui_pass)
 
@@ -291,6 +295,7 @@ class jenkins::agent (
       proxy_server => $proxy_server,
       cleanup      => false,
       extract      => false,
+      user         => $jar_owner,
     } ->
     Service['jenkins-agent']
   }
