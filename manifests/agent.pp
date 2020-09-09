@@ -298,6 +298,12 @@ class jenkins::agent (
       user         => $jar_owner,
     } ->
     Service['jenkins-agent']
+    
+    file {"${agent_home}/${client_jar}":
+      ensure  => file,
+      mode    => '0644',
+      require => Archive['get_swarm_client'],
+    }
   }
 
   service { 'jenkins-agent':
